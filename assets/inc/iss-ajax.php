@@ -112,8 +112,14 @@ function wpiss_header() {
 						
 							foreach ( $query->posts as $post ) {
 
+								if (function_exists('has_post_thumbnail')) {
+									if (has_post_thumbnail($post->ID)) {
+										$post_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID, 'thumbnail'));	
+									} else {
+										unset($post_image);
+									}
 								}
-								
+
 								// get the categories
 								$categories = '';
 								foreach(get_the_category($post->ID) as $category) { 
