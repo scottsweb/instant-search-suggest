@@ -8,7 +8,7 @@
 	Plugin URI: http://codecanyon.net/item/wordpress-instant-search-and-suggest/308665?ref=scottsweb
 	Description: Instant WordPress search with search term suggestions for tags, categories and titles.
 	Author: Scott Evans
-	Version: 1.7
+	Version: 1.75
 	Author URI: http://scott.ee
 
 */
@@ -22,7 +22,7 @@
 	define('WPISS_FILE', __FILE__);
 	
 	/** load language files **/
-	load_plugin_textdomain( 'wpiss', false, dirname(WPISS_BASE) . '/assets/languages/' );
+	load_plugin_textdomain( 'wpiss', false, dirname(WPISS_BASE) . '/assets/languages' );
 
 	/** load ajax goodness **/
 	include(WPISS_PATH . '/assets/inc/iss-ajax.php');
