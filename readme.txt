@@ -1,0 +1,1 @@
+For help open /documentation/index.html in your favourite web browser. 

@@ -1,0 +1,111 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Instant Search & Suggest\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-10 13:53+0100\n"
+"PO-Revision-Date: 2011-12-10 13:54+0100\n"
+"Last-Translator: Scott Evans\n"
+"Language-Team: @scottsweb <hi@scott.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: assets/inc/iss-admin.php:46
+msgid "Settings"
+msgstr ""
+
+#: assets/inc/iss-admin.php:47
+msgid "Support"
+msgstr ""
+
+#: assets/inc/iss-admin.php:48
+msgid "Twitter"
+msgstr ""
+
+#: assets/inc/iss-admin.php:64
+#: assets/inc/iss-admin.php:114
+msgid "Instant Search &amp; Suggest"
+msgstr ""
+
+#: assets/inc/iss-admin.php:64
+msgid "Instant Search"
+msgstr ""
+
+#: assets/inc/iss-admin.php:116
+msgid "Options"
+msgstr ""
+
+#: assets/inc/iss-admin.php:118
+msgid "Tips"
+msgstr ""
+
+#: assets/inc/iss-admin.php:126
+msgid "<strong>Search Everything:</strong> Improve your search results with the free <a href=\"http://wordpress.org/extend/plugins/search-everything/\">search everything plugin</a>."
+msgstr ""
+
+#: assets/inc/iss-admin.php:127
+msgid "<strong>Custom CSS:</strong> Copy the iss.css file from the plugin folder (instant-search-suggest/assets/css/) to the root of your theme and edit the CSS to match your design."
+msgstr ""
+
+#: assets/inc/iss-admin.php:128
+msgid "<strong>Unregister the CSS:</strong> If you wish to unload the plugin CSS file and move the styles to your own CSS, use the WP function  <a href=\"http://codex.wordpress.org/Function_Reference/wp_deregister_style\">wp_deregister_style('iss')</a>."
+msgstr ""
+
+#: assets/inc/iss-admin.php:129
+msgid "<strong>Attach to custom forms:</strong> Add the class '.iss' to any form input to invoke the instant search &amp; suggest behaviour."
+msgstr ""
+
+#: assets/inc/iss-admin.php:143
+msgid "Instant Search #id/.class"
+msgstr ""
+
+#: assets/inc/iss-admin.php:146
+msgid "The HTML #id or .class of your theme's content area. e.g. #content"
+msgstr ""
+
+#: assets/inc/iss-admin.php:151
+msgid "Search Suggest"
+msgstr ""
+
+#: assets/inc/iss-admin.php:165
+#: assets/inc/iss-admin.php:180
+msgid "Posts"
+msgstr ""
+
+#: assets/inc/iss-admin.php:167
+#: assets/inc/iss-admin.php:181
+msgid "Pages"
+msgstr ""
+
+#: assets/inc/iss-admin.php:193
+#: assets/inc/iss-admin.php:208
+msgid "Categories"
+msgstr ""
+
+#: assets/inc/iss-admin.php:195
+#: assets/inc/iss-admin.php:209
+msgid "Post Tags"
+msgstr ""
+
+#: assets/inc/iss-admin.php:212
+msgid "Which of these would you like to auto suggest during a search? Uncheck all to disable auto suggest."
+msgstr ""
+
+#: assets/inc/iss-admin.php:217
+msgid "Magic Mode"
+msgstr ""
+
+#: assets/inc/iss-admin.php:220
+msgid "With magic mode enabled users will be automatically transported to the selected post, page, custom post type, category/taxonomy."
+msgstr ""
+
+#: assets/inc/iss-admin.php:227
+msgid "Save Changes"
+msgstr ""
+
