@@ -112,19 +112,21 @@ function wpiss_header() {
 						
 							foreach ( $query->posts as $post ) {
 
-								if (function_exists('has_post_thumbnail')) {
-									if (has_post_thumbnail($post->ID)) {
-										$post_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID, 'thumbnail'));	
-									} else {
-										unset($post_image);
-									}
 								}
 								
+								// get the categories
+								$categories = '';
+								foreach(get_the_category($post->ID) as $category) { 
+								   $categories .= $category->cat_name . ', '; 
+								}
+								$categories = rtrim($categories, ', ');
+																
 								$results[] = array(
 									'title' => strip_tags($post->post_title), 
 									'permalink' => get_permalink($post->ID), 
 									'postdate' => wpiss_get_time($post->ID),
 									'posttype' => $post_types[$post->post_type]->labels->singular_name,
+									'categories' => $categories,
 									'type' => 'post',
 									'image' => (isset($post_image) ? $post_image[0] : 0) 
 								);
@@ -184,11 +186,11 @@ function wpiss_header() {
 								$results = array_slice($results, 0, absint($options['wpiss_suggestion_count'])); //only return the max set
 							}
 						}
-						
+
 						sort($results);
 						
 						// add a view all if we have more results
-						if (isset($more)) {
+						if ($more) {
 							$results[] = array(
 								'title' => __('View all results', 'wpiss'),
 								'permalink' => add_query_arg(array('s' => $s), site_url()),

@@ -99,6 +99,15 @@ html
 	margin-left: 60px;
 	}
 	
+/* view more */
+
+.iss_results li.iss-more
+	{
+	text-align: center;
+	background: #ddd;
+	padding: 3px;
+	}
+	
 /* while search is being performed show loading icon */
 
 .iss-on
