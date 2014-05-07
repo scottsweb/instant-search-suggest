@@ -1,0 +1,15 @@
+{
+	"name"       : "scottsweb/instant-search-suggest",
+	"description": "Instant WordPress search with search term suggestions for tags, categories and titles.",
+	"type"       : "wordpress-plugin",
+	"license"    : "GPL-2.0+",
+	"authors"    : [
+		{
+			"name"    : "Scott Evans",
+			"homepage": "http://scott.ee/"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
