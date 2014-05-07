@@ -8,7 +8,7 @@
 	Plugin URI: http://codecanyon.net/item/wordpress-instant-search-and-suggest/308665?ref=scottsweb
 	Description: Instant WordPress search with search term suggestions for tags, categories and titles.
 	Author: Scott Evans
-	Version: 1.75
+	Version: 1.8
 	Author URI: http://scott.ee
 
 */

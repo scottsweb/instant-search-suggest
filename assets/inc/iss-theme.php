@@ -17,8 +17,8 @@ function wpiss_init() {
 	wp_enqueue_script('iss-suggest',WPISS_JS_URL.'/jquery.suggest.js', array('jquery'), filemtime(WPISS_PATH.'/assets/js/jquery.suggest.js'), false);
 	wp_enqueue_script('iss',WPISS_JS_URL.'/iss.js', array('iss-suggest'), filemtime(WPISS_PATH.'/assets/js/iss.js'), false);
 	wp_localize_script('iss','iss_options', array(
-		'iss_suggest_url' => add_query_arg(array('action' => 'iss_suggest','_wpnonce' => wp_create_nonce( 'iss_suggest' )), trailingslashit(untrailingslashit(site_url()))),
-		'iss_instant_url' => add_query_arg(array('action' => 'iss_instant','_wpnonce' => wp_create_nonce( 'iss_instant' )), trailingslashit(untrailingslashit(site_url()))),  
+		'iss_suggest_url' => add_query_arg(array('action' => 'iss_suggest','_wpnonce' => wp_create_nonce( 'iss_suggest' )), untrailingslashit(admin_url('admin-ajax.php'))),
+		'iss_instant_url' => add_query_arg(array('action' => 'iss_instant','_wpnonce' => wp_create_nonce( 'iss_instant' )), untrailingslashit(admin_url('admin-ajax.php'))),  
 		'iss_style' => $options['wpiss_style'],
 		'iss_content' => ($content ? $content : 0),
 		'iss_magic' => (isset($options['wpiss_magic']) ? 1 : 0)
