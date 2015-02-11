@@ -1,8 +1,8 @@
-/* 
+/*
 
 iss.css
-rather than edit this file, copy it to your template directory and 
-edit it there: e.g. twentyten/iss.css 
+rather than edit this file, copy it to your themes template directory and 
+edit it there: e.g. twentyten/iss.css
 
 contents:
 
@@ -14,13 +14,13 @@ contents:
 /* 1. instant search & suggest plugin
 --------------------------------------------------------------------------------------- */
 
-/* force a scrollbar to stop visual jumping */ 
-html 
+/* force a scrollbar to stop visual jumping */
+html
 	{
-	overflow-y: scroll; 
+	overflow-y: scroll;
 	}
 
-.iss_results 
+.iss_results
 	{
 	background: #efefef;
 	display: none;
@@ -41,14 +41,14 @@ html
 	max-width: 300px; /* set this to the width of your search box */
 	}
 
-.iss_results li 
+.iss_results li
 	{
 	padding: 5px 10px;
 	text-align: left;
 	word-wrap: break-word;
 	}
-	
-.iss_over 
+
+.iss_over
 	{
 	background: #ddd;
 	cursor: pointer;
@@ -79,7 +79,7 @@ html
 	overflow: hidden;
 	line-height: 1.2em;
 	}
-	
+
 .iss_results li.iss-textstrap span.iss-sub,
 .iss_results li.iss-image span.iss-sub
 	{
@@ -98,7 +98,7 @@ html
 	{
 	margin-left: 60px;
 	}
-	
+
 /* view more */
 
 .iss_results li.iss-more
@@ -107,7 +107,7 @@ html
 	background: #ddd;
 	padding: 3px;
 	}
-	
+
 /* while search is being performed show loading icon */
 
 .iss-on
