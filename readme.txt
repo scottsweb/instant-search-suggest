@@ -44,6 +44,10 @@ Leave the `Instant Search #id/.class` setting empty to disable instant search.
 
 With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list. With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
 
+= How do I turn off search suggestions? =
+
+Uncheck all of the taxonomies and post types in the `Search Suggest` setting.
+
 = Does the plugin support custom taxonomies and post types? =
 
 Yes. You can control which of these appear in the suggestion list from the setting screen.

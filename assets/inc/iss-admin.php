@@ -1,40 +1,6 @@
 <?php
 
 /***************************************************************
-* Functions wpiss_defaults & wpiss_delete options
-* Register defaults and clean up on plugin uninstall
-***************************************************************/
-
-register_activation_hook( WPISS_FILE, 'wpiss_defaults' );
-register_uninstall_hook( WPISS_FILE, 'wpiss_delete_options' );
-
-function wpiss_defaults() {
-
-	$tmp = get_option( 'wpiss_options' );
-
-    if ( !is_array( $tmp ) ) {
-		$arr = array(
-
-			"wpiss_txt_content" => "#content",
-			"wpiss_style" => "text",
-			"wpiss_suggestion_count" => "all",
-			"wpiss_chk_post_page" => "1",
-			"wpiss_chk_post_post" => "1",
-			"wpiss_chk_tax_category" => "1",
-			"wpiss_chk_tax_post_tag" => "1"
-
-		);
-		update_option( 'wpiss_options', $arr );
-	}
-}
-
-function wpiss_delete_options() {
-
-	delete_option( 'wpiss_options' );
-
-}
-
-/***************************************************************
 * Functions wpiss_menu, wpiss_help_screen, wpiss_tips_screen, wpiss_settings, wpiss_register_settings
 * Create an administration settings page within WordPress
 ***************************************************************/
@@ -57,27 +23,26 @@ function wpiss_help_screen() {
 
 	$screen = get_current_screen();
 
-    if ( $screen->id != $wpiss_options_page )
-    	return;
+	if ( $screen->id != $wpiss_options_page )
+		return;
 
 	$screen->add_help_tab(
 		array(
-	        'id'      => 'wpiss-tips',
-	        'title'   => __( 'Tips', 'wpiss' ),
-	        'callback' => 'wpiss_tips_screen',
-	    )
-    );
+			'id'	  => 'wpiss-help',
+			'title'   => __( 'Help', 'wpiss' ),
+			'callback' => 'wpiss_help_screen_callback',
+		)
+	);
 
 }
 
-function wpiss_tips_screen() {
+function wpiss_help_screen_callback() {
 ?>
 
 	<p><?php _e( 'To get the most out of this plugin take note of the following tips:', 'wpiss' ); ?></p>
 
 	<ul>
 		<li><?php _e( '<strong>Disable Instant Search:</strong> Leave the "Instant Search #id/.class" empty to disable instant search.', 'wpiss' ); ?></li>
-		<li><?php _e( '<strong>Search Everything:</strong> Improve your search results with the free <a href="http://wordpress.org/extend/plugins/search-everything/">search everything plugin</a>.', 'wpiss' ); ?></li>
 		<li><?php _e( '<strong>Custom CSS:</strong> Copy the iss.css file from the plugin folder (instant-search-suggest/assets/css/) to the root of your theme and edit the CSS to match your design.', 'wpiss' ); ?></li>
 		<li><?php _e( '<strong>Unregister the CSS:</strong> If you wish to unload the plugin CSS file and move the styles to your own CSS, use the WP function  <a href="http://codex.wordpress.org/Function_Reference/wp_deregister_style">wp_deregister_style(\'iss\')</a>.', 'wpiss' ); ?></li>
 		<li><?php _e( '<strong>Attach to custom forms:</strong> Add the class \'.iss\' to any form input to invoke the instant search &amp; suggest behaviour.', 'wpiss' ); ?></li>
@@ -112,16 +77,16 @@ function wpiss_settings() {
 	<h2><?php _e( 'Instant Search &amp; Suggest', 'wpiss' ); ?></h2>
 
 	<form method="post" action="options.php">
-	    <?php settings_fields( 'wpiss-settings-group' ); ?>
+
+		<?php settings_fields( 'wpiss-settings-group' ); ?>
 		<?php $options = get_option( 'wpiss_options' ); ?>
-		<?php if ( !isset( $options['wpiss_suggestion_count'] ) ) $options['wpiss_suggestion_count'] = 'all'; ?>
 
 		<table class="form-table">
 
 			<tr>
 				<th scope="row"><?php _e( 'Instant Search #id/.class', 'wpiss' ); ?></th>
 				<td>
-					<input type="text" size="57" name="wpiss_options[wpiss_txt_content]" value="<?php echo $options['wpiss_txt_content']; ?>" />
+					<input type="text" size="57" name="wpiss_options[wpiss_txt_content]" value="<?php echo esc_attr( $options['wpiss_txt_content'] ); ?>" />
 					<span class="description"><?php _e( 'The HTML #id or .class of your theme\'s content area. e.g. #content. Leave empty to disable.', 'wpiss' ); ?></span>
 				</td>
 			</tr>
@@ -130,70 +95,77 @@ function wpiss_settings() {
 				<th scope="row"><?php _e( 'Search Suggest', 'wpiss' ); ?></th>
 
 				<td>
-
-        		<?php
-
-        		if ( function_exists( 'get_post_types' ) ) {
+				<?php
 
 				$args = array(
 					'public' => true,
 					'show_ui' => true,
 					'_builtin' => false
 				);
+
 				$output = 'objects';
 				$operator = 'and';
 				$post_types = get_post_types( $args, $output, $operator );
 
-				// default post types
-				$post_types['post']->labels->name = __( 'Posts', 'wpiss' );
-				$post_types['post']->name = 'post';
-				$post_types['page']->labels->name = __( 'Pages', 'wpiss' );
-				$post_types['page']->name = 'page';
+				if ( ! empty( $post_types ) ) {
+
+					// add default post types
+					$post_types['post']->labels->name = __( 'Posts', 'wpiss' );
+					$post_types['post']->name = 'post';
+					$post_types['page']->labels->name = __( 'Pages', 'wpiss' );
+					$post_types['page']->name = 'page';
+
+					foreach ( $post_types as $post_type ):
+
+					?>
+						<label><input name="wpiss_options[wpiss_chk_post_<?php echo $post_type->name; ?>]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_post_'.$post_type->name] ) ) { checked( '1', $options['wpiss_chk_post_'.$post_type->name] ); } ?> /> <?php echo $post_type->labels->name; ?> (<?php echo $post_type->name; ?>)</label><br />
+					<?php
+
+					endforeach;
+
+				} else {
 
 				?>
-
-                <?php foreach ( $post_types as $post_type ): ?>
-
-					<label><input name="wpiss_options[wpiss_chk_post_<?php echo $post_type->name; ?>]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_post_'.$post_type->name] ) ) { checked( '1', $options['wpiss_chk_post_'.$post_type->name] ); } ?> /> <?php echo $post_type->labels->name; ?> (<?php echo $post_type->name; ?>)</label><br />
-
-                <?php endforeach; ?>
-
-	            <?php } else { ?>
-
 					<label><input name="wpiss_options[wpiss_chk_post_post]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_post_post'] ) ) { checked( '1', $options['wpiss_chk_post_post'] ); } ?> /> <?php _e( 'Posts', 'wpiss' ); ?></label><br />
 					<label><input name="wpiss_options[wpiss_chk_post_page]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_post_page'] ) ) { checked( '1', $options['wpiss_chk_post_page'] ); } ?> /> <?php _e( 'Pages', 'wpiss' ); ?></label><br />
+				<?php
 
-	            <?php } ?>
+				}
 
-	            <?php if ( function_exists( 'get_taxonomies' ) ) {
-
-	            $tax_args = array(
+				$tax_args = array(
 					'_builtin' => false
 				);
 				$tax_output = 'objects';
 				$tax_operator = 'and';
 				$taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
 
-	            // default taxonomies
-	            $taxonomies['category']->labels->name = __( 'Categories', 'wpiss' );
-	            $taxonomies['category']->name = 'category';
-	            $taxonomies['post_tag']->labels->name = __( 'Post Tags', 'wpiss' );
-	            $taxonomies['post_tag']->name = 'post_tag';
 
-	            ?>
+				if (! empty( $taxonomies )) {
 
-            	<?php foreach ( $taxonomies as $tax ): ?>
+					// add default taxonomies
+					$taxonomies['category']->labels->name = __( 'Categories', 'wpiss' );
+					$taxonomies['category']->name = 'category';
+					$taxonomies['post_tag']->labels->name = __( 'Post Tags', 'wpiss' );
+					$taxonomies['post_tag']->name = 'post_tag';
 
-					<label><input name="wpiss_options[wpiss_chk_tax_<?php echo $tax->name; ?>]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_tax_'.$tax->name] ) ) { checked( '1', $options['wpiss_chk_tax_'.$tax->name] ); } ?> /> <?php echo $tax->labels->name; ?> (<?php echo $tax->name; ?>)</label><br />
+					foreach ( $taxonomies as $tax ):
 
-                <?php endforeach; ?>
+					?>
+						<label><input name="wpiss_options[wpiss_chk_tax_<?php echo $tax->name; ?>]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_tax_'.$tax->name] ) ) { checked( '1', $options['wpiss_chk_tax_'.$tax->name] ); } ?> /> <?php echo $tax->labels->name; ?> (<?php echo $tax->name; ?>)</label><br />
+					<?php
 
-				<?php } else { ?>
+					endforeach;
 
+				} else {
+
+				?>
 					<label><input name="wpiss_options[wpiss_chk_tax_category]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_tax_category'] ) ) { checked( '1', $options['wpiss_chk_tax_category'] ); } ?> /> <?php _e( 'Categories', 'wpiss' ); ?></label><br />
 					<label><input name="wpiss_options[wpiss_chk_tax_post_tag]" type="checkbox" value="1" <?php if ( isset( $options['wpiss_chk_tax_post_tag'] ) ) { checked( '1', $options['wpiss_chk_tax_post_tag'] ); } ?> /> <?php _e( 'Post Tags', 'wpiss' ); ?></label><br />
+				<?php
 
-				<?php } ?>
+				}
+
+				?>
 						<span class="description"><?php _e( 'Which of these would you like to auto suggest during a search? Uncheck all to disable auto suggest.', 'wpiss' ); ?></span>
 				</td>
 			</tr>

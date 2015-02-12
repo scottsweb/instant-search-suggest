@@ -1,21 +1,14 @@
 <?php
 
-/***************************************************************
-* Function wpiss_header
-* Catch ajax action for instant search.
-***************************************************************/
-
-add_action( 'wp_ajax_iss_instant', 'iss_instant' );
-add_action( 'wp_ajax_nopriv_iss_instant', 'iss_instant' );
-
+/**
+ * Catch ajax action for instant search.
+ *
+ * @return string HTML content
+ */
 function iss_instant() {
 
-	// verify different _wpnonce value in 3.3+
-	if ( get_bloginfo( 'version' ) >= '3.3' ) {
-		$nonce = $_REQUEST['_wpnonce'];
-	} else {
-		$nonce = $_REQUEST['amp;_wpnonce'];
-	}
+	// grab _wpnonce value
+	$nonce = $_REQUEST['_wpnonce'];
 
 	if ( wp_verify_nonce( $nonce, 'iss_instant' ) ) {
 
@@ -28,7 +21,7 @@ function iss_instant() {
 		}
 
 		// query the results page and return for instant search - use curl if available
-		$remote = wp_remote_get( home_url().'/?s='.urlencode( trim( stripslashes( $_GET['s'] ) ) ) );
+		$remote = wp_remote_get( home_url().'/?s='.urlencode( sanitize_text_field ( stripslashes( $_GET['s'] ) ) ) );
 
 		if ( !is_wp_error( $remote ) ) {
 
@@ -47,24 +40,18 @@ function iss_instant() {
 
 	die();
 }
+add_action( 'wp_ajax_iss_instant', 'iss_instant' );
+add_action( 'wp_ajax_nopriv_iss_instant', 'iss_instant' );
 
-
-/***************************************************************
-* Function iss_suggest
-* Catch ajax action for instant search.
-***************************************************************/
-
-add_action( 'wp_ajax_iss_suggest', 'iss_suggest' );
-add_action( 'wp_ajax_nopriv_iss_suggest', 'iss_suggest' );
-
+/**
+ * Catch ajax action for search suggestions.
+ *
+ * @return string JSON content
+ */
 function iss_suggest() {
 
-	// verify different _wpnonce value in 3.3+
-	if ( get_bloginfo( 'version' ) >= '3.3' ) {
-		$nonce = $_REQUEST['_wpnonce'];
-	} else {
-		$nonce = $_REQUEST['amp;_wpnonce'];
-	}
+	// grab _wpnonce value
+	$nonce = $_REQUEST['_wpnonce'];
 
 	if ( wp_verify_nonce( $nonce, 'iss_suggest' ) ) {
 
@@ -74,16 +61,20 @@ function iss_suggest() {
 		$options = get_option( 'wpiss_options' );
 
 		// clean up the query
-		$s = trim( stripslashes( $_GET['q'] ) );
+		$s = sanitize_text_field( stripslashes( $_GET['q'] ) );
 
 		// post types
 		$post_query = array();
-		if ( function_exists( 'get_post_types' ) ) {
 
-			$args = array( 'public' => true, 'show_ui' => true );
-			$output = 'objects';
-			$operator = 'and';
-			$post_types = get_post_types( $args, $output, $operator );
+		$args = array(
+			'public' => true,
+			'show_ui' => true
+		);
+		$output = 'objects';
+		$operator = 'and';
+		$post_types = get_post_types( $args, $output, $operator );
+
+		if ( !empty( $post_types ) ) {
 
 			foreach ( $post_types as $post_type ) {
 
@@ -92,6 +83,7 @@ function iss_suggest() {
 				}
 
 			}
+
 		} else {
 
 			if ( $options['wpiss_chk_post_post'] ) { $post_query[] = 'post'; }
@@ -101,7 +93,11 @@ function iss_suggest() {
 
 		if ( !empty( $post_query ) ) {
 
-			$query_args = array( 's' => $s, 'post_status' => 'publish', 'post_type' => $post_query );
+			$query_args = array(
+				's' => $s,
+				'post_status' => 'publish',
+				'post_type' => $post_query
+			);
 			$query = new WP_Query( $query_args );
 
 			if ( ! empty( $query->posts ) ) {
@@ -119,14 +115,14 @@ function iss_suggest() {
 					// get the categories
 					$categories = '';
 					foreach ( get_the_category( $post->ID ) as $category ) {
-					   $categories .= $category->cat_name . ', ';
+						$categories .= $category->cat_name . ', ';
 					}
 					$categories = rtrim( $categories, ', ' );
 
 					$results[] = array(
 						'title' => strip_tags( $post->post_title ),
 						'permalink' => get_permalink( $post->ID ),
-						'postdate' => wpiss_get_time( $post->ID ),
+						'postdate' => get_the_time( get_option( 'date_format' ), $post->ID),
 						'posttype' => $post_types[$post->post_type]->labels->singular_name,
 						'categories' => $categories,
 						'type' => 'post',
@@ -138,12 +134,12 @@ function iss_suggest() {
 
 		// taxononomies
 		$tax_query = array();
-		if ( function_exists( 'get_taxonomies' ) ) {
+		$tax_args = array();
+		$tax_output = 'objects';
+		$tax_operator = 'and';
+		$taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
 
-			$tax_args = array();
-			$tax_output = 'objects';
-			$tax_operator = 'and';
-			$taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
+		if ( !empty( $taxonomies ) ) {
 
 			foreach ( $taxonomies as $tax ) {
 
@@ -207,24 +203,5 @@ function iss_suggest() {
 
 	die();
 }
-
-/***************************************************************
-* Function wpiss_get_time
-* Helper function for caluclation of date and time of supplied post
-***************************************************************/
-
-function wpiss_get_time( $post_id, $format='' ) {
-
-	// parse a custom stamp format e.g. F jS, Y &#8212; H:i
-	if ( $format ) {
-		return get_the_time( $format, $post_id );
-	}
-
-	if ( ( get_option( 'date_format' ) != '' ) && ( get_option( 'time_format' ) != '' ) ) {
-		return get_the_time( get_option( 'date_format' ), $post_id ) . " - " . get_the_time( '', $post_id );
-	}
-
-	if ( ( get_option( 'date_format' ) != '' ) && ( get_option( 'time_format' ) == '' ) ) {
-		return get_the_time( get_option( 'date_format' ), $post_id );
-	}
-}
+add_action( 'wp_ajax_iss_suggest', 'iss_suggest' );
+add_action( 'wp_ajax_nopriv_iss_suggest', 'iss_suggest' );
