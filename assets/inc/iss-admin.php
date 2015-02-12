@@ -1,25 +1,6 @@
 <?php
 
 /***************************************************************
-* Functions wpiss_hide_plugin
-* Stop this plugin checking for updates at WordPress.org - http://toggl.es/t3ezCT
-***************************************************************/
-
-add_filter( 'http_request_args', 'wpiss_hide_plugin', 5, 2 );
-
-function wpiss_hide_plugin( $r, $url ) {
-
-	if ( 0 !== strpos( $url, 'http://api.wordpress.org/plugins/update-check' ) )
-		return $r; // Not a plugin update request. Bail immediately.
-
-	$plugins = unserialize( $r['body']['plugins'] );
-	unset( $plugins->plugins[ plugin_basename( __FILE__ ) ] );
-	unset( $plugins->active[ array_search( plugin_basename( __FILE__ ), $plugins->active ) ] );
-	$r['body']['plugins'] = serialize( $plugins );
-	return $r;
-}
-
-/***************************************************************
 * Functions wpiss_defaults & wpiss_delete options
 * Register defaults and clean up on plugin uninstall
 ***************************************************************/

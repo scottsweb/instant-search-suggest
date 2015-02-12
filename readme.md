@@ -4,7 +4,7 @@
 
 * Status: ✔ Active
 * Contributors: [@scottsweb](http://twitter.com/scottsweb)
-* Description: Instant WordPress search with search term suggestions for tags, categories and titles.
+* Description: Instant WordPress search with search suggestions for tags, categories and titles.
 * Author: [Scott Evans](http://scott.ee)
 * Author URI: [http://scott.ee](http://scott.ee)
 * License: GNU General Public License v2.0
@@ -43,6 +43,10 @@ Leave the `Instant Search #id/.class` setting empty to disable instant search.
 ### What is Magic Mode?
 
 With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list. With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
+
+### Does the plugin support custom taxonomies and post types?
+
+Yes. You can control which of these appear in the suggestion list from the setting screen.
 
 ### How do I customise the look and feel of the suggestions?
 

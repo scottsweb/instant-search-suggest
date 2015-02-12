@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Instant WordPress search with search term suggestions for tags, categories and titles.
+Instant WordPress search with search suggestions for tags, categories and titles.
 
 == Description ==
 
@@ -43,6 +43,10 @@ Leave the `Instant Search #id/.class` setting empty to disable instant search.
 = What is Magic Mode? =
 
 With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list. With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
+
+= Does the plugin support custom taxonomies and post types? =
+
+Yes. You can control which of these appear in the suggestion list from the setting screen.
 
 = How do I customise the look and feel of the suggestions? =
 
