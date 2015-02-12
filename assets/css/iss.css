@@ -1,7 +1,7 @@
 /*
 
 iss.css
-rather than edit this file, copy it to your themes template directory and 
+rather than edit this file, copy it to your themes template directory and
 edit it there: e.g. twentyten/iss.css
 
 contents:
@@ -38,7 +38,6 @@ html
 	-webkit-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.1);
 	-moz-box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.1);
 	box-shadow: 2px 2px 2px rgba(50, 50, 50, 0.1);
-	max-width: 300px; /* set this to the width of your search box */
 	}
 
 .iss_results li
@@ -73,15 +72,13 @@ html
 
 /* new - different layouts/styles */
 
-.iss_results li.iss-textstrap,
-.iss_results li.iss-image
+.iss_results li.iss-result
 	{
 	overflow: hidden;
 	line-height: 1.2em;
 	}
 
-.iss_results li.iss-textstrap span.iss-sub,
-.iss_results li.iss-image span.iss-sub
+span.iss-sub
 	{
 	display: block;
 	color: #aaa;
@@ -89,14 +86,10 @@ html
 	line-height: 1em;
 	}
 
-.iss_results li.iss-image img
+.iss_results li img
 	{
 	float: left;
-	}
-
-.iss_results li.iss-image .iss-image-content
-	{
-	margin-left: 60px;
+	margin-right: 10px;
 	}
 
 /* view more */

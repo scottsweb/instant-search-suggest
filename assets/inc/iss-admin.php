@@ -38,7 +38,6 @@ function wpiss_help_screen() {
 
 function wpiss_help_screen_callback() {
 ?>
-
 	<p><?php _e( 'To get the most out of this plugin take note of the following tips:', 'wpiss' ); ?></p>
 
 	<ul>
@@ -47,7 +46,6 @@ function wpiss_help_screen_callback() {
 		<li><?php _e( '<strong>Unregister the CSS:</strong> If you wish to unload the plugin CSS file and move the styles to your own CSS, use the WP function  <a href="http://codex.wordpress.org/Function_Reference/wp_deregister_style">wp_deregister_style(\'iss\')</a>.', 'wpiss' ); ?></li>
 		<li><?php _e( '<strong>Attach to custom forms:</strong> Add the class \'.iss\' to any form input to invoke the instant search &amp; suggest behaviour.', 'wpiss' ); ?></li>
 	</ul>
-
 <?php
 }
 
@@ -183,22 +181,6 @@ function wpiss_settings() {
 					</select>
 					</label>
 					<span class="description"><?php _e( 'Choose a limit for the number of suggestions returned.', 'wpiss' ); ?></span>
-				</td>
-			</tr>
-
-			<tr>
-				<th scope="row"><?php _e( 'Suggestion Style', 'wpiss' ); ?></th>
-				<td>
-					<label>
-					<select name="wpiss_options[wpiss_style]">
-						<option value="text" <?php if ( $options['wpiss_style'] == 'text' ) { ?>selected="selected"<?php } ?>><?php _e( 'Text Only (post titles, page titles etc).', 'wpiss' ); ?></option>
-						<option value="textstrap" <?php if ( $options['wpiss_style'] == 'textstrap' ) { ?>selected="selected"<?php } ?>><?php _e( 'Text + Extra (post titles, page titles with publish date/taxonomy names).', 'wpiss' ); ?></option>
-						<?php if ( current_theme_supports( 'post-thumbnails' ) ) { ?>
-						<option value="image" <?php if ( $options['wpiss_style'] == 'image' ) { ?>selected="selected"<?php } ?>><?php _e( 'Images (featured images with extra details as above).', 'wpiss' ); ?></option>
-						<?php } ?>
-					</select>
-					</label>
-					<span class="description"><?php _e( 'Choose the look and feel of your suggestion list.', 'wpiss' ); ?></span>
 				</td>
 			</tr>
 

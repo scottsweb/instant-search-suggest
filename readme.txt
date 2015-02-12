@@ -20,13 +20,23 @@ The plugin requires very little configuration and should work out of the box wit
 
 To install this plugin:
 
-1. Upload the `instant-search-suggest` folder to the `/wp-content/plugins/` directory on your WordPress website
+1. Upload the `instant-search-suggest` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Tweak the settings in `Settings -> Instant Search` if required
 
 Visit [WordPress.org for a comprehensive guide](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) on in how to install WordPress plugins.
 
 == Frequently Asked Questions ==
+
+= Hooks & Filters =
+
+The plugin has two filters, both of which allow you to customise the search suggestion results. The filters are: `wpiss_post_tempalte` and `wpiss_taxonmy_tempalte`.
+
+You should return a valid [mustache template](https://github.com/janl/mustache.js) to both of these. You can see in example in `assets/inc/iss-theme.php`.
+
+Variables available in your mustache template for posts/cpts are: `title`, `permalink`, `postdate`, `posttype`, `categories` and `image`.
+
+Variables available in your mustache template for taxonomies are: `title`, `permalink`, `taxonomy` and `count`.
 
 = How do I setup Instant Search? =
 
