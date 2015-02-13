@@ -62,7 +62,6 @@ function wpiss_defaults() {
 	if ( !is_array( $tmp ) ) {
 		$arr = array(
 			"wpiss_txt_content" 		=> "#content",
-			"wpiss_style"				=> "text",
 			"wpiss_suggestion_count" 	=> "all",
 			"wpiss_chk_post_page"	 	=> "1",
 			"wpiss_chk_post_post" 		=> "1",

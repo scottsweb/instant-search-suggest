@@ -30,7 +30,7 @@ Visit [WordPress.org for a comprehensive guide](http://codex.wordpress.org/Manag
 
 The plugin has two filters, both of which allow you to customise the search suggestion results. The filters are: `wpiss_post_tempalte` and `wpiss_taxonmy_tempalte`.
 
-You should return a valid [mustache template](https://github.com/janl/mustache.js) to both of these. You can see in example in `assets/inc/iss-theme.php`.
+You should return a valid [mustache template](https://github.com/janl/mustache.js) to both of these. You can see an example in `assets/inc/iss-theme.php`.
 
 Variables available in your mustache template for posts/cpts are: `title`, `permalink`, `postdate`, `posttype`, `categories` and `image`.
 

@@ -21,7 +21,7 @@ function iss_instant() {
 		}
 
 		// query the results page and return for instant search - use curl if available
-		$remote = wp_remote_get( home_url().'/?s='.urlencode( sanitize_text_field ( stripslashes( $_GET['s'] ) ) ) );
+		$remote = wp_remote_get( home_url() . '/?s='.urlencode( sanitize_text_field ( stripslashes( $_GET['s'] ) ) ) );
 
 		if ( !is_wp_error( $remote ) ) {
 
@@ -55,127 +55,135 @@ function iss_suggest() {
 
 	if ( wp_verify_nonce( $nonce, 'iss_suggest' ) ) {
 
-		$results = array();
-
-		// grab our settings
-		$options = get_option( 'wpiss_options' );
-
 		// clean up the query
 		$s = sanitize_text_field( stripslashes( $_GET['q'] ) );
 
-		// post types
-		$post_query = array();
+		// check for the results in cache
+		$results = wp_cache_get( 'wpiss_' . sanitize_title_with_dashes( $s ) );
 
-		$args = array(
-			'public' => true,
-			'show_ui' => true
-		);
-		$output = 'objects';
-		$operator = 'and';
-		$post_types = get_post_types( $args, $output, $operator );
+		// no cache so lets create some suggestions
+		if ( $results == false ) {
 
-		if ( !empty( $post_types ) ) {
+			$results = array();
 
-			foreach ( $post_types as $post_type ) {
+			// grab our settings
+			$options = get_option( 'wpiss_options' );
 
-				if ( isset( $options['wpiss_chk_post_' . $post_type->name] ) ) {
-					$post_query[] = $post_type->name;
-				}
+			// post types
+			$post_query = array();
 
-			}
-
-		} else {
-
-			if ( $options['wpiss_chk_post_post'] ) { $post_query[] = 'post'; }
-			if ( $options['wpiss_chk_post_page'] ) { $post_query[] = 'page'; }
-
-		}
-
-		if ( !empty( $post_query ) ) {
-
-			$query_args = array(
-				's' => $s,
-				'post_status' => 'publish',
-				'post_type' => $post_query
+			$args = array(
+				'public' => true,
+				'show_ui' => true
 			);
-			$query = new WP_Query( $query_args );
+			$output = 'objects';
+			$operator = 'and';
+			$post_types = get_post_types( $args, $output, $operator );
 
-			if ( ! empty( $query->posts ) ) {
+			if ( !empty( $post_types ) ) {
 
-				foreach ( $query->posts as $post ) {
+				foreach ( $post_types as $post_type ) {
 
-					if ( function_exists( 'has_post_thumbnail' ) ) {
-						if ( has_post_thumbnail( $post->ID ) ) {
-							$post_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID, 'thumbnail' ) );
-						} else {
-							unset( $post_image );
+					if ( isset( $options['wpiss_chk_post_' . $post_type->name] ) ) {
+						$post_query[] = $post_type->name;
+					}
+				}
+
+			} else {
+
+				if ( $options['wpiss_chk_post_post'] ) { $post_query[] = 'post'; }
+				if ( $options['wpiss_chk_post_page'] ) { $post_query[] = 'page'; }
+
+			}
+
+			if ( !empty( $post_query ) ) {
+
+				$query_args = array(
+					's' => $s,
+					'post_status' => 'publish',
+					'post_type' => $post_query
+				);
+				$query = new WP_Query( $query_args );
+
+				if ( ! empty( $query->posts ) ) {
+
+					foreach ( $query->posts as $post ) {
+
+						if ( function_exists( 'has_post_thumbnail' ) ) {
+							if ( has_post_thumbnail( $post->ID ) ) {
+								$post_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID, 'thumbnail' ) );
+							} else {
+								unset( $post_image );
+							}
 						}
-					}
 
-					// get the categories
-					$categories = '';
-					foreach ( get_the_category( $post->ID ) as $category ) {
-						$categories .= $category->cat_name . ', ';
-					}
-					$categories = rtrim( $categories, ', ' );
+						// get the categories
+						$categories = '';
+						foreach ( get_the_category( $post->ID ) as $category ) {
+							$categories .= $category->cat_name . ', ';
+						}
+						$categories = rtrim( $categories, ', ' );
 
-					$results[] = array(
-						'title' => strip_tags( $post->post_title ),
-						'permalink' => get_permalink( $post->ID ),
-						'postdate' => get_the_time( get_option( 'date_format' ), $post->ID),
-						'posttype' => $post_types[$post->post_type]->labels->singular_name,
-						'categories' => $categories,
-						'type' => 'post',
-						'image' => ( isset( $post_image ) ? $post_image[0] : 0 )
-					);
+						$results[] = array(
+							'title' => strip_tags( $post->post_title ),
+							'permalink' => get_permalink( $post->ID ),
+							'postdate' => get_the_time( get_option( 'date_format' ), $post->ID),
+							'posttype' => $post_types[$post->post_type]->labels->singular_name,
+							'categories' => $categories,
+							'type' => 'post',
+							'image' => ( isset( $post_image ) ? $post_image[0] : 0 )
+						);
+					}
 				}
 			}
-		}
 
-		// taxononomies
-		$tax_query = array();
-		$tax_args = array();
-		$tax_output = 'objects';
-		$tax_operator = 'and';
-		$taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
+			// taxononomies
+			$tax_query = array();
+			$tax_args = array();
+			$tax_output = 'objects';
+			$tax_operator = 'and';
+			$taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
 
-		if ( !empty( $taxonomies ) ) {
+			if ( !empty( $taxonomies ) ) {
 
-			foreach ( $taxonomies as $tax ) {
+				foreach ( $taxonomies as $tax ) {
 
-				if ( isset( $options['wpiss_chk_tax_' . $tax->name] ) ) {
-					$tax_query[] = $tax->name;
+					if ( isset( $options['wpiss_chk_tax_' . $tax->name] ) ) {
+						$tax_query[] = $tax->name;
+					}
 				}
+			} else {
+
+				if ( $options['wpiss_chk_tax_category'] ) { $tax_query[] = 'category'; }
+				if ( $options['wpiss_chk_tax_post_tag'] ) { $tax_query[] = 'post_tag'; }
 
 			}
-		} else {
 
-			if ( $options['wpiss_chk_tax_category'] ) { $tax_query[] = 'category'; }
-			if ( $options['wpiss_chk_tax_post_tag'] ) { $tax_query[] = 'post_tag'; }
+			if ( !empty( $tax_query ) ) {
 
-		}
+				$terms = get_terms( $tax_query, 'search='.$s );
 
-		if ( !empty( $tax_query ) ) {
+				if ( ! empty( $terms ) ) {
 
-			$terms = get_terms( $tax_query, 'search='.$s );
+					foreach ( $terms as $term ) {
 
-			if ( ! empty( $terms ) ) {
-
-				foreach ( $terms as $term ) {
-
-					$results[] = array(
-						'title' => $term->name,
-						'permalink' => get_term_link( $term->name, $term->taxonomy ),
-						'taxonomy' => $taxonomies[$term->taxonomy]->labels->singular_name,
-						'count' => $term->count,
-						'type' => 'taxonomy'
-					);
+						$results[] = array(
+							'title' => $term->name,
+							'permalink' => get_term_link( $term->name, $term->taxonomy ),
+							'taxonomy' => $taxonomies[$term->taxonomy]->labels->singular_name,
+							'count' => $term->count,
+							'type' => 'taxonomy'
+						);
+					}
 				}
 			}
 		}
 
 		// sort and output results
 		if ( ! empty( $results ) ) {
+
+			// cache output for 10 minutes for everyone
+			wp_cache_set( 'wpiss_' . sanitize_title_with_dashes( $s ), $results, '', 300 );
 
 			if ( isset( $options['wpiss_suggestion_count'] ) && $options['wpiss_suggestion_count'] != 'all' ) {
 				if ( count( $results ) > absint( $options['wpiss_suggestion_count'] ) ) {
