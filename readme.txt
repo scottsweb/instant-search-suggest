@@ -66,6 +66,8 @@ Yes. You can control which of these appear in the suggestion list from the setti
 
 We have purposely left the styles on the suggestion dropdown simple to fit many themes. If you wish to customise the CSS copy the `iss.css` file from the plugin folder (/assets/css/) to the root of your theme and edit the CSS to match your design.
 
+If you wish to change the output of the suggestions please see the hooks and filters section above.
+
 You can also dequeue `iss.css` and move the styles to your own CSS file using: `wp_deregister_style('iss');`
 
 == Screenshots ==
