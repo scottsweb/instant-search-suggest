@@ -1,7 +1,7 @@
 === Instant Search & Suggest ===
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb
-Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax
+Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax, instant-search, search-suggest, speed
 Requires at least: 4.0
 Tested up to: 4.2
 Stable tag: trunk
