@@ -46,8 +46,8 @@ function wpiss_post_template() {
 				<img src="{{image}}" width="50" height="50" />
 			{{/image}}
 			{{{title}}}
-			<span class="iss-sub">{{postdate}}</div>
-			<span class="iss-sub">{{posttype}}</div>
+			<span class="iss-sub">{{postdate}}</span>
+			<span class="iss-sub">{{posttype}}</span>
 		</li>
 	</script>';
 
@@ -66,7 +66,7 @@ function wpiss_taxonomy_template() {
 	<script type="x-tmpl-mustache" id="wpiss-taxonomy-template">
 		<li class="iss-result">
 			{{{title}}}
-			<span class="iss-sub">{{taxonomy}} ({{count}})</div>
+			<span class="iss-sub">{{taxonomy}} ({{count}})</span>
 		</li>
 	</script>';
 
