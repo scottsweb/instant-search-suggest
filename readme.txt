@@ -2,7 +2,7 @@
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb
 Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax, instant-search, search-suggest, speed
-Requires at least: 4.0
+Requires at least: 4.2.2
 Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
@@ -15,6 +15,8 @@ Instant WordPress search with search suggestions for tags, categories and titles
 Add Google style instant search and search suggest to your WordPress powered site. This plugin will begin displaying search results as soon as your site visitor starts typing into the search box.
 
 The plugin requires very little configuration and should work out of the box with most themes. The plugin has its own options page to configure the plugin to work with your theme if you require it.
+
+[a plugin by Scott Evans](http://scott.ee/ "WordPress designer and developer")
 
 == Installation ==
 

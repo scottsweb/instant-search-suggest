@@ -196,7 +196,7 @@ function iss_suggest() {
 			sort( $results );
 
 			// add a view all if we have more results
-			if ( $more ) {
+			if ( isset( $more ) ) {
 				$results[] = array(
 					'title' => __( 'View all results', 'wpiss' ),
 					'permalink' => add_query_arg( array( 's' => $s ), site_url() ),
