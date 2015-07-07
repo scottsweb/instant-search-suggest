@@ -72,5 +72,8 @@ You can also dequeue `iss.css` and move the styles to your own CSS file using: `
 
 ## Changelog
 
+#### 2.1
+* Correctly filter search results to match settings
+
 #### 2.0
-* Inital release on WordPress.org (coming soon)
+* Inital release on WordPress.org

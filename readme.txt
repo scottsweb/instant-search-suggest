@@ -2,8 +2,8 @@
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb
 Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax, instant-search, search-suggest, speed
-Requires at least: 4.2.2
-Tested up to: 4.2
+Requires at least: 4.0
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,10 @@ You can also dequeue `iss.css` and move the styles to your own CSS file using: `
 2. Search suggestions on twentyfifteen
 
 == Changelog ==
+
+= 2.1 =
+* Correctly filter search results to match settings
+
 
 = 2.0 =
 * Inital release on WordPress.org

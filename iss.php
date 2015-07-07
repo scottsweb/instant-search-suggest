@@ -3,7 +3,7 @@
 Plugin Name: Instant Search & Suggest
 Plugin URI: https://github.com/scottsweb/instant-search-suggest
 Description: Instant WordPress search with search term suggestions for tags, categories and titles.
-Version: 2.0
+Version: 2.1
 Author: Scott Evans
 Author URI: http://scott.ee
 Text Domain: wpiss
