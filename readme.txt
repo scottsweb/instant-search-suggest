@@ -1,9 +1,9 @@
 === Instant Search & Suggest ===
 Contributors: scottsweb
 Donate link: https://flattr.com/profile/scottsweb
-Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax, instant-search, search-suggest, speed
+Tags: search, suggestions, instant, google, recommendations, query, find, searching, suggest, ajax, instant-search, search-suggest, speed, instant search, search everything, better search, WordPress Search, better wordpress search
 Requires at least: 4.0
-Tested up to: 4.3
+Tested up to: 4.5.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +16,7 @@ Add Google style instant search and search suggest to your WordPress powered sit
 
 The plugin requires very little configuration and should work out of the box with most themes. The plugin has its own options page to configure the plugin to work with your theme if you require it.
 
-[a plugin by Scott Evans](http://scott.ee/ "WordPress designer and developer")
+[a plugin by Scott Evans](https://scott.ee/ "WordPress designer and developer")
 
 == Installation ==
 
@@ -26,7 +26,7 @@ To install this plugin:
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Tweak the settings in `Settings -> Instant Search` if required
 
-Visit [WordPress.org for a comprehensive guide](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) on in how to install WordPress plugins.
+Visit [WordPress.org for a comprehensive guide](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) on in how to install WordPress plugins.
 
 == Frequently Asked Questions ==
 
@@ -54,7 +54,7 @@ Leave the `Instant Search #id/.class` setting empty to disable instant search.
 
 = What is Magic Mode? =
 
-With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list. With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
+With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
 
 = How do I turn off search suggestions? =
 
