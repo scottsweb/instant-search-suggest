@@ -3,10 +3,10 @@
 # Instant Search & Suggest
 
 * Status: ✔ Active
-* Contributors: [@scottsweb](http://twitter.com/scottsweb)
+* Contributors: [@scottsweb](https://twitter.com/scottsweb)
 * Description: Instant WordPress search with search suggestions for tags, categories and titles.
-* Author: [Scott Evans](http://scott.ee)
-* Author URI: [http://scott.ee](http://scott.ee)
+* Author: [Scott Evans](https://scott.ee)
+* Author URI: [https://scott.ee](https://scott.ee)
 * License: GNU General Public License v2.0
 * License URI: [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -24,7 +24,7 @@ To install this plugin:
 * Activate the plugin through the 'Plugins' menu in WordPress
 * Tweak the settings in `Settings -> Instant Search` if required
 
-Visit [WordPress.org for a comprehensive guide](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) on in how to install WordPress plugins.
+Visit [WordPress.org for a comprehensive guide](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) on in how to install WordPress plugins.
 
 ## Hooks & Filters
 
@@ -52,7 +52,7 @@ Leave the `Instant Search #id/.class` setting empty to disable instant search.
 
 ### What is Magic Mode?
 
-With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list. With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
+With Magic Mode enabled the user is automatically transported to the post, page, custom post type or taxonomy they have selected in the suggestions list.
 
 ### How do I turn off search suggestions?
 
