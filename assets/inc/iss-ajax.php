@@ -199,7 +199,7 @@ function iss_suggest() {
 			if ( isset( $more ) ) {
 				$results[] = array(
 					'title' => __( 'View all results', 'wpiss' ),
-					'permalink' => add_query_arg( array( 's' => $s ), site_url() ),
+					'permalink' => add_query_arg( array( 's' => $s ), home_url() ),
 					'count'	=> $count,
 					'type' => 'more'
 				);
