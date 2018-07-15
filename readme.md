@@ -1,4 +1,4 @@
-![Instant Search & Suggest](http://cloud.scott.ee/images/instant-search-suggest.png)
+![Instant Search & Suggest](https://scott.ee/images/instant-search-suggest.png)
 
 # Instant Search & Suggest
 
