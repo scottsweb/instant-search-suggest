@@ -2,7 +2,7 @@
 
 # Instant Search & Suggest
 
-* Status: ✔ Active
+* Status: ✖ Inctive
 * Contributors: [@scottsweb](https://twitter.com/scottsweb)
 * Description: Instant WordPress search with search suggestions for tags, categories and titles.
 * Author: [Scott Evans](https://scott.ee)
